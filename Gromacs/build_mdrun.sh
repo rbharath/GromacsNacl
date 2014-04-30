@@ -20,8 +20,8 @@ echo -n "Downloading nacl sdk and patching libnacl.a... "
 wget http://storage.googleapis.com/nativeclient-mirror/nacl/nacl_sdk/nacl_sdk.zip 
 unzip nacl_sdk.zip
 pushd nacl_sdk
-./naclsdk install pepper_27
-cp $BASE/libnacl.a pepper_27/toolchain/linux_x86_newlib/x86_64-nacl/lib/libnacl.a 
+./naclsdk install pepper_33
+cp $BASE/libnacl.a pepper_33/toolchain/linux_x86_newlib/x86_64-nacl/lib/libnacl.a 
 popd
 echo "Done."
 
@@ -37,8 +37,8 @@ patch -p1 < $BASE/gromacs.patch
 echo "Done."
 
 echo "Building Gromacs with NaCl"
-export PATH=$ROOT/nacl_sdk/pepper_27/toolchain/linux_x86_newlib/x86_64-nacl/bin:\
-$ROOT/nacl_sdk/pepper_27/toolchain/linux_x86_newlib/bin:$PATH
+export PATH=$ROOT/nacl_sdk/pepper_33/toolchain/linux_x86_newlib/x86_64-nacl/bin:\
+$ROOT/nacl_sdk/pepper_33/toolchain/linux_x86_newlib/bin:$PATH
 gcc --version
 
 mkdir nacl-build
@@ -51,7 +51,7 @@ mv src/kernel/mdrun src/kernel/mdrun.nexe
 echo "Done."
 
 echo "Validating with ncval..."
-$ROOT/nacl_sdk/pepper_27/tools/ncval_x86_64 src/kernel/mdrun.nexe
+$ROOT/nacl_sdk/pepper_33/tools/ncval_x86_64 src/kernel/mdrun.nexe
 echo "Done."
 
 echo "mdrun.nexe is available at $ROOT/gromacs-4.6.2/nacl-build/src/kernel/mdrun.nexe"
