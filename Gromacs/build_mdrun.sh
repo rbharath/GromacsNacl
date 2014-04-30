@@ -26,11 +26,11 @@ popd
 echo "Done."
 
 echo "Downloading Gromacs sources..."
-wget ftp://ftp.gromacs.org/pub/gromacs/gromacs-4.6.2.tar.gz
-tar -xzf gromacs-4.6.2.tar.gz
+wget ftp://ftp.gromacs.org/pub/gromacs/gromacs-4.6.5.tar.gz
+tar -xzf gromacs-4.6.5.tar.gz
 echo "Done."
 
-cd gromacs-4.6.2
+cd gromacs-4.6.5
 
 echo -n "Applying the patch..."
 patch -p1 < $BASE/gromacs.patch
@@ -54,4 +54,4 @@ echo "Validating with ncval..."
 $ROOT/nacl_sdk/pepper_33/tools/ncval_x86_64 src/kernel/mdrun.nexe
 echo "Done."
 
-echo "mdrun.nexe is available at $ROOT/gromacs-4.6.2/nacl-build/src/kernel/mdrun.nexe"
+echo "mdrun.nexe is available at $ROOT/gromacs-4.6.5/nacl-build/src/kernel/mdrun.nexe"
