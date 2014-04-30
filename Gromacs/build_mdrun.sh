@@ -43,7 +43,7 @@ gcc --version
 
 mkdir nacl-build
 cd nacl-build
-cmake -DGMX_CPU_ACCELERATION=SSE2 -DGMX_BUILD_OWN_FFTW=yes -DGMX_PREFER_STATIC_LIBS=yes -DBUILD_SHARED_LIBS=no .. 
+cmake -DGMX_CPU_ACCELERATION=SSE2 -DGMX_BUILD_OWN_FFTW=yes -DGMX_PREFER_STATIC_LIBS=yes -DBUILD_SHARED_LIBS=no -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc 
 make mdrun -j7 || make mdrun VERBOSE=1
 
 echo -n "Renaming mdrun to mdrun.nexe"
