@@ -22,25 +22,17 @@ index 455a14e..841ff76 100644
      message("Recommended flags which are not added because GMX_SKIP_DEFAULT_CFLAGS=yes:")
 diff --git a/src/contrib/fftw/CMakeLists.txt b/src/contrib/fftw/CMakeLists.txt
 index 6787c83..405a552 100644
---- a/src/contrib/fftw/CMakeLists.txt
-+++ b/src/contrib/fftw/CMakeLists.txt
-@@ -35,14 +35,14 @@ if(CMAKE_VERSION VERSION_LESS 2.8.3)
-     message(WARNING "GROMACS is downloading FFTW ${EXTERNAL_FFTW_VERSION}, but your version of CMake is too old to allow GROMACS to check that the archive it receives is correct. GROMACS will build and link to FFTW anyway, but there is a security risk if you execute a GROMACS tool that calls this library. Either build your own FFTW, or update CMake to at least version 2.8.3.")
-         ExternalProject_add(gmxfftw
-             URL "http://www.fftw.org/fftw-${EXTERNAL_FFTW_VERSION}.tar.gz"
--            CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR>
-+            CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR> --host=x86_64-nacl
-             ${GMX_BUILD_OWN_FFTW_SHARED_FLAG} ${GMX_BUILD_OWN_FFTW_OPTIMIZATION_CONFIGURATION}
-             ${GMX_BUILD_OWN_FFTW_PREC})
- else()
-     ExternalProject_add(gmxfftw
+--- a/src/contrib/fftw/CMakeLists.txt	2013-11-08 11:09:33.000000000 +0000
++++ b/src/contrib/fftw/CMakeLists.txt	2014-04-30 16:51:19.922053921 +0000
+@@ -38,7 +38,7 @@
+ # md5sum check to avoid needing the above warning
+     ExternalProject_add(fftwBuild
          URL "http://www.fftw.org/fftw-${EXTERNAL_FFTW_VERSION}.tar.gz"
-         URL_MD5 ${EXTERNAL_FFTW_VERSION_MD5_SUM}
--        CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR>
-+        CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR> --host=x86_64-nacl
+-        CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR> --libdir=<INSTALL_DIR>/lib
++        CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR> --libdir=<INSTALL_DIR>/lib  --host=x86_64-nacl
          ${GMX_BUILD_OWN_FFTW_SHARED_FLAG} ${GMX_BUILD_OWN_FFTW_OPTIMIZATION_CONFIGURATION}
          ${GMX_BUILD_OWN_FFTW_PREC})
- endif()
+ externalproject_get_property(fftwBuild INSTALL_DIR)
 diff --git a/src/gmxlib/checkpoint.c b/src/gmxlib/checkpoint.c
 index f4b602d..ff2d329 100644
 --- a/src/gmxlib/checkpoint.c
